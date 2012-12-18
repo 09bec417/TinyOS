@@ -1,11 +1,11 @@
 <tos_image>
   <ident>
-    <uidhash>EE8E9798L</uidhash>
+    <uidhash>7A5D32FAL</uidhash>
     <hostname>cloudygoose-Thi</hostname>
     <username>cloudygoose</username>
     <appname>SenderAppC</appname>
     <userhash>E14EED0DL</userhash>
-    <timestamp>50CF1773L</timestamp>
+    <timestamp>50D04228L</timestamp>
     <deluge_support>no</deluge_support>
     <platform>telosb</platform>
   </ident>

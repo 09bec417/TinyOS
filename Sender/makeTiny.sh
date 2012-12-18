@@ -13,6 +13,8 @@ fi
 echo "your id is " $yourid
 echo .....
 rm -r build
+sudo chmod 777 /dev/ttyUSB0
+sudo chmod 777 /dev/ttyUSB1
 make telosb
 motelist
 make telosb install,$yourid /dev/ttyUSB0

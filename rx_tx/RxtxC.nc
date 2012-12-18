@@ -38,6 +38,7 @@ implementation{
 				if(payload2 == NULL){
 					return NULL;
 				}
+				payload2->nodeid = payload1->nodeid;
 				payload2->temperature = payload1->temperature;
 				if(sizeof(payload2) > (call Packet.maxPayloadLength())){
 					return NULL;

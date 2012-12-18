@@ -61,7 +61,7 @@ implementation{
 			dbgerror("error", "max payload size exceeded\n");
 			return;
 		}
-		
+		payload->nodeid = uint16_t(5);
 		payload->temperature = val;
 		
 		if((call AMSend.send(AM_BROADCAST_ADDR, &packet, sizeof(temperature_msg_t))) == SUCCESS){
