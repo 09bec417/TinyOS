@@ -1,0 +1,29 @@
+import java.util.*;
+import java.io.*;
+public class Displayer {
+    public Displayer() {
+	br = new BufferedReader(new InputStreamReader(System.in));	
+    }
+    public void skipLines(int kk) {
+	String s;
+	while (true && kk > 0) {
+	    s = br.readLine();
+	    kk--;
+	}
+    }
+    public static void main(String[] args) {
+        try {
+	    br = new BufferedReader(new InputStreamReader(System.in));
+	    skipLines(2);
+	    String s;
+	    while (true) {
+		s = br.readLine();
+		if (s != null)
+		    System.out.println(s);
+	    }
+	}catch (IOException e) {
+	    
+	}
+    }
+    BufferedReader br;
+}

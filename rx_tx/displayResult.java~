@@ -1,0 +1,7 @@
+public class Displayer {
+    public Displayer() {
+    }
+    public void main(String[] args) {
+	System.out.println("Hello");
+    }
+}
