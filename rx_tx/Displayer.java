@@ -21,14 +21,15 @@ public class Displayer {
     }
     public static void main(String[] args) {
         try {
-            Message.play();
-	    br = new BufferedReader(new InputStreamReader(System.in));
+            br = new BufferedReader(new InputStreamReader(System.in));
 	    String s;
 	    while (true) {
 		s = br.readLine();
 		if (s != null) {
 		    System.out.println("raw data :" + s);
 		    s = s.replaceAll(" ", "");
+		    Message mes = new Message(s);
+		    System.out.println(mes.toString());
 		}
 	    }
 	}catch (IOException e) {
