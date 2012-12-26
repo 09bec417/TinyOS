@@ -1,11 +1,11 @@
 <tos_image>
   <ident>
-    <uidhash>ACAF35D4L</uidhash>
+    <uidhash>00058D61L</uidhash>
     <hostname>cloudygoose-Thi</hostname>
     <username>cloudygoose</username>
     <appname>BlinkAppC</appname>
     <userhash>E14EED0DL</userhash>
-    <timestamp>50CA8C5AL</timestamp>
+    <timestamp>50DAFB4EL</timestamp>
     <deluge_support>no</deluge_support>
     <platform>telosb</platform>
   </ident>

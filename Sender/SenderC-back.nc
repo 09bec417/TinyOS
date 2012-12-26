@@ -65,7 +65,6 @@ implementation{
 			payload->temperature = temperature;
 			payload->humidity = humidity;
 			payload->light = light;
-                        payload->flag = 0;
 			if((call AMSend.send(AM_BROADCAST_ADDR, &packet, sizeof(temperature_msg_t))) == SUCCESS){
 			    busy = TRUE;
 			}
@@ -84,22 +83,8 @@ implementation{
 				return NULL;
 			} else {
 				temperature_msg_t* payload1 = (temperature_msg_t *)pl;
-				temperature_msg_t* payload2 = (temperature_msg_t *)call Packet.getPayload(&packet, sizeof(temperature_msg_t));
-				if(payload2 == NULL){
-					return NULL;
-				}
-				payload2->nodeid = payload1->nodeid;
-				payload2->temperature = payload1->temperature;
-				payload2->humidity = payload1->humidity;
-				payload2->light = payload1->light;
-				payload2->flag = payload1->flag;
 
-				if(sizeof(payload2) > (call Packet.maxPayloadLength())){
-					return NULL;
-				}
-			
-
-				amark = payload1->flag;
+				amark = payload1->mark;
 				
 				base = 1;
 				for(i = 0;i < TOS_NODE_ID - 1;++i) {
@@ -108,16 +93,16 @@ implementation{
 				
 				label = amark & base;
 				
-				if(label == 0) {
+				if(label > 0) {
 					
 					
 					amark = amark + base;
-					payload2->flag = amark;
+					payload1->mark = amark;
 					
-					if((call AMSend.send(AM_BROADCAST_ADDR, &packet, sizeof(temperature_msg_t))) == SUCCESS){
-						call Leds.led0On();
-						busy = TRUE;
-					}
+					//if((call AMSend.send(AM_BROADCAST_ADDR, msg, sizeof(temperature_msg_t))) == SUCCESS){
+					//	call Leds.led0On();
+					//	busy = TRUE;
+					//}
 				}
 			}
 		}

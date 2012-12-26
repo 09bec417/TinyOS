@@ -22,6 +22,10 @@ implementation{
 	uint16_t temperature;
 	uint16_t humidity;
 	uint16_t light;
+	uint16_t amark;
+	uint16_t label;
+	uint16_t base;
+	uint16_t i;
 	event void Control.stopDone(error_t error){
 		
 		// do nothing
@@ -61,6 +65,12 @@ implementation{
 			payload->temperature = temperature;
 			payload->humidity = humidity;
 			payload->light = light;
+
+			base = 1;
+			for(i = 0;i < TOS_NODE_ID - 1;++i) {
+				base = base * 2;
+			}
+                        payload->flag = base;
 			if((call AMSend.send(AM_BROADCAST_ADDR, &packet, sizeof(temperature_msg_t))) == SUCCESS){
 			    busy = TRUE;
 			}
@@ -70,6 +80,53 @@ implementation{
 
 	event message_t* Receive.receive(message_t* msg, void* pl, uint8_t len) {
 	        //This is where you should change!!
+
+		if(len != sizeof(temperature_msg_t)){
+			return msg;
+		}
+		else {
+			if(busy == TRUE){
+				return NULL;
+			} else {
+				temperature_msg_t* payload1 = (temperature_msg_t *)pl;
+				temperature_msg_t* payload2 = (temperature_msg_t *)call Packet.getPayload(&packet, sizeof(temperature_msg_t));
+				if(payload2 == NULL){
+					return NULL;
+				}
+				payload2->nodeid = payload1->nodeid;
+				payload2->temperature = payload1->temperature;
+				payload2->humidity = payload1->humidity;
+				payload2->light = payload1->light;
+				payload2->flag = payload1->flag;
+
+				if(sizeof(payload2) > (call Packet.maxPayloadLength())){
+					return NULL;
+				}
+			
+
+				amark = payload1->flag;
+				
+				base = 1;
+				for(i = 0;i < TOS_NODE_ID - 1;++i) {
+					base = base * 2;
+				}				
+				
+				label = amark & base;
+				
+				if(label == 0) {
+					
+					
+					amark = amark + base;
+					payload2->flag = amark;
+					
+					if((call AMSend.send(AM_BROADCAST_ADDR, &packet, sizeof(temperature_msg_t))) == SUCCESS){
+						call Leds.led0On();
+						busy = TRUE;
+					}
+				}
+			}
+		}
+
 		call Leds.led0Toggle();
 		return msg;
 	}	
